@@ -66,12 +66,26 @@ export default function Grid() {
   const call = () => {
     return TableG();
   };
+  useEffect(() => {
+    data;
+  }, [update]);
 
   const update = (name, date, unit, type, point) => {
     // console.log(name, date, unit, type, point);
     // setData({name, date, unit, type, point});
     // setData({name: name, date: date, unit: unit, type: type, point: point});
-    setData([name, date, unit, type, point]);
+    if (
+      name == null ||
+      date == null ||
+      unit == null ||
+      type == null ||
+      point == null
+    ) {
+      Alert.alert('Full the info.');
+    } else {
+      setData([name, date, unit, type, point]);
+      setModalVisible(!modalVisible);
+    }
 
     console.log(data);
     settableData(oldArray => [...oldArray, data]);
@@ -112,7 +126,7 @@ export default function Grid() {
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
+          // Alert.alert('Modal has been closed.');
 
           setModalVisible(!modalVisible);
         }}>
@@ -203,8 +217,8 @@ export default function Grid() {
             <Pressable
               onPress={() => {
                 // console.log(name,date, unit,type,point)
+
                 update(name, date, unit, type, point);
-                setModalVisible(!modalVisible);
               }}
               style={[styles.button, styles.buttonClose]}>
               <Text style={styles.textStyle}>Submit</Text>
